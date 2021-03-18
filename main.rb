@@ -5,12 +5,13 @@ class SnakeGame
     @window = window
     @direction = 'u'
     @snake = [[10, 10]]
+    @running = false
   end
 
   def input_listener
     Thread.new do
       @window.keypad = true
-      while true
+      while @running 
         input = @window.getch
         if input == Curses::Key::LEFT then @direction = 'l'
         elsif input == Curses::Key::RIGHT then @direction = 'r'
@@ -73,12 +74,14 @@ class SnakeGame
 
     @window.setpos(@window.cury/2-1, @window.curx/2-1)
     @window.addstr(' GAME OVER ')
+    @running = false
   end
 
-  def startGame
+  def start_game
+    @running = true
     spawn_food
     input_listener
-    while true
+    while @running
       move_snake
       @window.refresh
       sleep 0.15
@@ -95,7 +98,7 @@ begin
   window.refresh
 
   game = SnakeGame.new(window)
-  game.startGame
+  game.start_game
 ensure
   Curses.close_screen
 end
