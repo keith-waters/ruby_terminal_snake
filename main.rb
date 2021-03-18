@@ -51,6 +51,13 @@ class SnakeGame
     grow_snake
   end
 
+  def spawn_food
+    x = rand(2..@window.maxx-2)
+    y = rand(2..@window.maxy-2)
+    @window.setpos(y, x)
+    @window.addstr("0")
+  end
+
   def handle_collision
     # collision detection!
     # 32 is ' '
@@ -61,18 +68,15 @@ class SnakeGame
     x, y = @snake.first
     @window.setpos(x, y)
     tester = @window.inch()
-    if tester != ' '.ord
-      @window.setpos(@window.cury/2-1, @window.curx/2-1)
-      @window.addstr(' GAME OVER ')
-    end
-    remove_tail
+    return remove_tail if tester == ' '.ord
+    return spawn_food if tester == '0'.ord
+
+    @window.setpos(@window.cury/2-1, @window.curx/2-1)
+    @window.addstr(' GAME OVER ')
   end
 
   def startGame
-    @window.setpos(2, 2)
-    @window.addstr("0")
-
-
+    spawn_food
     input_listener
     while true
       move_snake
