@@ -10,7 +10,7 @@ This is just for fun! Nothing super serious. It's here to play around. To play w
 
 ## To do list
 - [x] Prototype the curses gem 
-- [] Make snake controllable
-- [] Collision with wall ends game
-- [] Collision with snake ends game
-- [] Eating fruit makes the snake grow
+- [ ] Make snake controllable
+- [ ] Collision with wall ends game
+- [ ] Collision with snake ends game
+- [ ] Eating fruit makes the snake grow
