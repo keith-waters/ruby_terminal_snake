@@ -10,7 +10,12 @@ This is just for fun! Nothing super serious. It's here to play around. To play w
 
 ## To do list
 - [x] Prototype the curses gem 
-- [ ] Make snake controllable
-- [ ] Collision with wall ends game
+- [x] Make snake controllable
+- [x] Collision with wall ends game
 - [ ] Collision with snake ends game
-- [ ] Eating fruit makes the snake grow
+- [x] Eating fruit makes the snake grow
+- [ ] Eating fruit makes more fruit spawn
+
+## Future ideas
+- [ ] command line argument to set amount of food spawned
+- [ ] change border every time you eat food
