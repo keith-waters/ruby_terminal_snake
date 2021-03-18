@@ -21,6 +21,13 @@ class SnakeGame
     end
   end
 
+  def remove_tail
+    x, y = @snake.last
+    @window.setpos(x, y)
+    @window.addstr(' ')
+    @snake.pop
+  end
+
   def move_snake
     x, y = @snake.first
     new_head = if @direction == 'u'
@@ -33,7 +40,14 @@ class SnakeGame
       [x, y-1]
     end
     @snake.unshift(new_head)
-    @snake.pop
+    remove_tail
+
+    @snake.each_with_index do |point, index| 
+      c = '*'
+      @window.setpos(point[0], point[1])
+      @window.addstr(c)
+    end
+
   end
 
   def startGame
@@ -43,11 +57,6 @@ class SnakeGame
 
     input_listener
     while true
-      @snake.each_with_index do |point, index| 
-        c = '*'
-        @window.setpos(point[0], point[1])
-        @window.addstr(c)
-      end
 
       @window.refresh
       
@@ -59,13 +68,13 @@ class SnakeGame
       # 48 is '0'
       # ascii conversion chart: https://bournetocode.com/projects/GCSE_Computing_Fundamentals/pages/img/ascii_table_lge.png
       # use constants for these ascii codes, more readable, better documentation
-      x, y = @snake.first
-      @window.setpos(x, y)
-      tester = @window.inch()
-      if tester != 32
-        @window.setpos(@window.cury/2-1, @window.curx/2-1)
-        @window.addstr(' GAME OVER ')
-      end
+      # x, y = @snake.first
+      # @window.setpos(x, y)
+      # tester = @window.inch()
+      # if tester != 32
+      #   @window.setpos(@window.cury/2-1, @window.curx/2-1)
+      #   @window.addstr(' GAME OVER ')
+      # end
 
       # @window.setpos(@window.cury, @window.curx-1)
       # @window.addstr(' ')
