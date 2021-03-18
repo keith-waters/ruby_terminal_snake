@@ -28,12 +28,11 @@ class SnakeGame
     @snake.pop
   end
 
-  def draw_snake
-    @snake.each_with_index do |point, index| 
-      c = '*'
-      @window.setpos(point[0], point[1])
-      @window.addstr(c)
-    end
+  def grow_snake
+    c = '*'
+    head = @snake.first
+    @window.setpos(*head)
+    @window.addstr(c)
   end
 
   def move_snake
@@ -48,8 +47,25 @@ class SnakeGame
       [x, y-1]
     end
     @snake.unshift(new_head)
+    handle_collision
+    grow_snake
+  end
+
+  def handle_collision
+    # collision detection!
+    # 32 is ' '
+    # 42 is '*'
+    # 48 is '0'
+    # ascii conversion chart: https://bournetocode.com/projects/GCSE_Computing_Fundamentals/pages/img/ascii_table_lge.png
+    # use constants for these ascii codes, more readable, better documentation
+    x, y = @snake.first
+    @window.setpos(x, y)
+    tester = @window.inch()
+    if tester != ' '.ord
+      @window.setpos(@window.cury/2-1, @window.curx/2-1)
+      @window.addstr(' GAME OVER ')
+    end
     remove_tail
-    draw_snake
   end
 
   def startGame
@@ -61,24 +77,6 @@ class SnakeGame
     while true
       move_snake
       @window.refresh
-
-      # collision detection!
-      # 32 is ' '
-      # 42 is '*'
-      # 48 is '0'
-      # ascii conversion chart: https://bournetocode.com/projects/GCSE_Computing_Fundamentals/pages/img/ascii_table_lge.png
-      # use constants for these ascii codes, more readable, better documentation
-      # x, y = @snake.first
-      # @window.setpos(x, y)
-      # tester = @window.inch()
-      # if tester != 32
-      #   @window.setpos(@window.cury/2-1, @window.curx/2-1)
-      #   @window.addstr(' GAME OVER ')
-      # end
-
-      # @window.setpos(@window.cury, @window.curx-1)
-      # @window.addstr(' ')
-      # @window.refresh
       sleep 0.15
     end
   end
