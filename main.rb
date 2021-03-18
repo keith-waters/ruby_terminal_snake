@@ -11,24 +11,18 @@ class SnakeGame
       @window.keypad = true
       while true
         input = @window.getch
-        if input == Curses::Key::LEFT 
-          @direction = 'l'
-        elsif input == Curses::Key::RIGHT
-          @direction = 'r'
-        elsif input == Curses::Key::UP
-          @direction = 'u'
-        elsif input == Curses::Key::DOWN
-          @direction = 'd'
+        if input == Curses::Key::LEFT then @direction = 'l'
+        elsif input == Curses::Key::RIGHT then @direction = 'r'
+        elsif input == Curses::Key::UP then @direction = 'u'
+        elsif input == Curses::Key::DOWN then @direction = 'd'
         end
       end
     end
   end
 
   def startGame
-    @window.box("\u2588", "\u2584", "\u2588")
     @window.setpos(2, 2)
     @window.addstr("0")
-    @window.refresh
 
     snake = [[9, 10], [10, 10], [10, 11], [10, 12], [10, 13], [10, 14]]
 
@@ -79,6 +73,9 @@ Curses.init_screen
 Curses.curs_set(0)  # Invisible cursor
 begin
   window = Curses::Window.new(Curses.lines / 2 - 1, Curses.cols / 2 - 1, 0, 0)
+  window.box("\u2588", "\u2584", "\u2588")
+  window.refresh
+
   game = SnakeGame.new(window)
   game.startGame
 ensure
