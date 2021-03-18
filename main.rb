@@ -28,6 +28,14 @@ class SnakeGame
     @snake.pop
   end
 
+  def draw_snake
+    @snake.each_with_index do |point, index| 
+      c = '*'
+      @window.setpos(point[0], point[1])
+      @window.addstr(c)
+    end
+  end
+
   def move_snake
     x, y = @snake.first
     new_head = if @direction == 'u'
@@ -41,13 +49,7 @@ class SnakeGame
     end
     @snake.unshift(new_head)
     remove_tail
-
-    @snake.each_with_index do |point, index| 
-      c = '*'
-      @window.setpos(point[0], point[1])
-      @window.addstr(c)
-    end
-
+    draw_snake
   end
 
   def startGame
@@ -57,10 +59,8 @@ class SnakeGame
 
     input_listener
     while true
-
-      @window.refresh
-      
       move_snake
+      @window.refresh
 
       # collision detection!
       # 32 is ' '
@@ -79,7 +79,7 @@ class SnakeGame
       # @window.setpos(@window.cury, @window.curx-1)
       # @window.addstr(' ')
       # @window.refresh
-      sleep 0.1
+      sleep 0.15
     end
   end
 
