@@ -65,7 +65,8 @@ class SnakeGame
         win1.setpos(new_head[0], new_head[1])
         tester = win1.inch()
         if tester != 32
-          raise ' we broke it '
+          win1.setpos(win1.cury/2-1, win1.curx/2-1)
+          win1.addstr(' GAME OVER ')
         end
 
         win1.setpos(win1.cury, win1.curx-1)
