@@ -74,18 +74,6 @@ begin
     end
   end
 
-  # In this window, there will be an animation
-  win2 = Curses::Window.new(Curses.lines / 2 - 1, Curses.cols / 2 - 1, 
-                            Curses.lines / 2, Curses.cols / 2)
-  win2.box("|", "-")
-  win2.refresh
-  2.upto(win2.maxx - 3) do |i|
-    win2.setpos(win2.maxy / 2, i)
-    win2 << "*"
-    win2.refresh
-    sleep 0.05 
-  end
-
   inputThread.join
   snakeThread.join
   sleep 5
